@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class Invite {
     
@@ -29,12 +30,24 @@ class Invite {
     }
     
     func toJSON() -> NSDictionary {
-        var jsonNSDic = NSMutableDictionary()
+        let jsonNSDic = NSMutableDictionary()
         jsonNSDic.setValue(type, forKey: "type") //.addEntriesFromDictionary(jsonDic)
         jsonNSDic.setValue(userName, forKey: "userName")
         jsonNSDic.setValue(userPhoneNumber, forKey: "userPhoneNumber")
         jsonNSDic.setValue(userEmail, forKey: "userEmail")
         return jsonNSDic as NSDictionary
+    }
+    
+}
+
+extension Invite: MultipeerSendableMessage {
+    
+    func convertTOSendableObject(sender: MCPeerID, recipient: MCPeerID?) -> NSDictionary {
+        let sendableObject = NSMutableDictionary()
+        sendableObject.setValue(sender, forKey: "sender")
+        sendableObject.setValue(recipient, forKey: "recipeint")
+        sendableObject.setValue(toJSON(), forKey: "content")
+        return sendableObject
     }
     
 }

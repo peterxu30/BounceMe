@@ -19,6 +19,7 @@
 		D043DEC31CCD69770006A061 /* HostedEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D043DEC21CCD69770006A061 /* HostedEventsTableViewController.swift */; };
 		D043DEC51CCD69DE0006A061 /* EventsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D043DEC41CCD69DE0006A061 /* EventsCollection.swift */; };
 		D043DEC91CCD6B9B0006A061 /* EventServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D043DEC81CCD6B9B0006A061 /* EventServiceManager.swift */; };
+		D0504D121CD41CC200082A82 /* MultipeerSendableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0504D111CD41CC200082A82 /* MultipeerSendableData.swift */; };
 		D064342B1CD2B75D00198206 /* MultipeerCapableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064342A1CD2B75D00198206 /* MultipeerCapableTableViewController.swift */; };
 		D064342D1CD2C29D00198206 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064342C1CD2C29D00198206 /* Invite.swift */; };
 		D0CFD16A1CCC41A800B164D2 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CFD1691CCC41A800B164D2 /* UserProfile.swift */; };
@@ -41,6 +42,7 @@
 		D043DEC21CCD69770006A061 /* HostedEventsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostedEventsTableViewController.swift; sourceTree = "<group>"; };
 		D043DEC41CCD69DE0006A061 /* EventsCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsCollection.swift; sourceTree = "<group>"; };
 		D043DEC81CCD6B9B0006A061 /* EventServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventServiceManager.swift; sourceTree = "<group>"; };
+		D0504D111CD41CC200082A82 /* MultipeerSendableData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipeerSendableData.swift; sourceTree = "<group>"; };
 		D064342A1CD2B75D00198206 /* MultipeerCapableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipeerCapableTableViewController.swift; sourceTree = "<group>"; };
 		D064342C1CD2C29D00198206 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
 		D0CFD1691CCC41A800B164D2 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -90,12 +92,21 @@
 			path = BounceMe;
 			sourceTree = "<group>";
 		};
+		D0504D101CD41C8D00082A82 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D043DEC81CCD6B9B0006A061 /* EventServiceManager.swift */,
+				D0504D111CD41CC200082A82 /* MultipeerSendableData.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		D0CFD1681CCC418700B164D2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D0504D101CD41C8D00082A82 /* Networking */,
 				D0CFD1691CCC41A800B164D2 /* UserProfile.swift */,
 				D043DEC41CCD69DE0006A061 /* EventsCollection.swift */,
-				D043DEC81CCD6B9B0006A061 /* EventServiceManager.swift */,
 				D00349F91CCDA27900F208BB /* Event.swift */,
 				D00349FB1CCDA46B00F208BB /* HostedEvent.swift */,
 				D064342C1CD2C29D00198206 /* Invite.swift */,
@@ -209,6 +220,7 @@
 				D02629FE1CC757A300B67383 /* ViewController.swift in Sources */,
 				D00349FC1CCDA46B00F208BB /* HostedEvent.swift in Sources */,
 				D02629FC1CC757A300B67383 /* AppDelegate.swift in Sources */,
+				D0504D121CD41CC200082A82 /* MultipeerSendableData.swift in Sources */,
 				D043DEC51CCD69DE0006A061 /* EventsCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

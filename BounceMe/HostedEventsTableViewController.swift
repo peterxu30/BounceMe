@@ -61,7 +61,7 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
     
     func broadcastHostedEvent(hostedEvent: Event) {
         print(hostedEvent.toJSON())
-        parentTabBarController.sendMessage(hostedEvent.toJSON())
+        parentTabBarController.sendMessage(hostedEvent.convertTOSendableObject(parentTabBarController.userProfile.getUserMCPeerID(), recipient: nil))
     }
     
 }

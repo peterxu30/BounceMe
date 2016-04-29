@@ -12,7 +12,6 @@ import MultipeerConnectivity
 protocol EventServiceManagerDelegate {
     
     func connectedDevicesChanged(manager : EventServiceManager, connectedDevices: [String])
-//    func eventChanged(manager : EventServiceManager, eventString: String)
     func messageReceived(manager: EventServiceManager, message: NSDictionary)
 }
 
@@ -20,12 +19,13 @@ class EventServiceManager: NSObject {
     
     private let EventServiceType = "example-event" //change later
     
-    private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
+    private let myPeerId: MCPeerID!
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private var serviceBrowser : MCNearbyServiceBrowser
     var delegate : EventServiceManagerDelegate?
     
-    override init() {
+    init(peerID: MCPeerID) {
+        myPeerId = peerID
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: EventServiceType)
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: EventServiceType)
         
@@ -53,9 +53,9 @@ class EventServiceManager: NSObject {
      * Final Stop before a message is sent out.
      * Converts NSDictionary types (used internally) to NSData type to broadcast.
      */
-    func sendMessage(event: NSDictionary) {
-        NSLog("%@", "sendJSON: \(event)")
-        let eventNSData = NSKeyedArchiver.archivedDataWithRootObject(event)
+    func sendMessage(message: NSDictionary) {
+        NSLog("%@", "sendJSON: \(message)")
+        let eventNSData = NSKeyedArchiver.archivedDataWithRootObject(message)
         if session.connectedPeers.count > 0 {
             do {
                 try self.session.sendData(eventNSData, toPeers: session.connectedPeers, withMode: .Reliable)
@@ -138,8 +138,16 @@ extension EventServiceManager : MCSessionDelegate {
         do {
             print("RECEIVED DATA WOOHOO!")
             let msg = try NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
-//            let msg = try NSJSONSerialization.JSONObjectWithData(data, options: [.MutableContainers, .AllowFragments]) as! NSDictionary
-            self.delegate?.messageReceived(self, message: msg)
+            if let recipient = msg["recipient"] as? MCPeerID {
+                if (recipient == myPeerId) {
+                    print("Valid recipient")
+                    self.delegate?.messageReceived(self, message: msg["content"] as! NSDictionary)
+                }
+            } else {
+                print("All recipients")
+                self.delegate?.messageReceived(self, message: msg["content"] as! NSDictionary)
+            }
+            
         } catch let error {
             print(error)
         }

@@ -7,17 +7,23 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class UserProfile: NSObject, NSCoding {
     
     private var userName: String!
     private var userPhoneNumber: String!
     private var userEmail: String!
+    private var userMCPeerID: MCPeerID!
     
+    /*
+     * Only called if no profile was ever created previously.
+     */
     override init() {
         userName = ""
         userPhoneNumber = ""
         userEmail = ""
+        userMCPeerID = MCPeerID(displayName: UIDevice.currentDevice().name)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -38,19 +44,29 @@ class UserProfile: NSObject, NSCoding {
         } else {
             userEmail = ""
         }
+        
+        if let myPeerID = aDecoder.decodeObjectForKey("userMCPeerID") {
+            userMCPeerID = myPeerID as! MCPeerID
+        } else {
+            userMCPeerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+        }
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        if let name = self.userName {
+        if let name = userName {
             aCoder.encodeObject(name, forKey: "userName")
         }
         
-        if let phoneNumber = self.userPhoneNumber {
+        if let phoneNumber = userPhoneNumber {
             aCoder.encodeObject(phoneNumber, forKey: "userPhoneNumber")
         }
         
-        if let email = self.userEmail {
+        if let email = userEmail {
             aCoder.encodeObject(email, forKey: "userEmail")
+        }
+        
+        if let myPeerID = userMCPeerID {
+            aCoder.encodeObject(myPeerID, forKey: "userMCPeerID")
         }
     }
     
@@ -64,6 +80,10 @@ class UserProfile: NSObject, NSCoding {
     
     func getUserEmail() -> String {
         return userEmail
+    }
+    
+    func getUserMCPeerID() -> MCPeerID {
+        return userMCPeerID
     }
     
     func setUserName(name: String) {

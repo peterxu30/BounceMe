@@ -16,16 +16,16 @@ protocol MainTabBarControllerCommunicator {
 
 class MainTabBarController: UITabBarController {
     
-    var userProfile = UserProfile()
+    var userProfile: UserProfile!
     var defaults = NSUserDefaults.standardUserDefaults()
     var activeTab = ""
     var activeViewController: MultipeerCapableTableViewController!
-    
-    let eventService = EventServiceManager()
+    var eventService: EventServiceManager!
     
     override func viewDidLoad() {
         print("TabView loaded")
         userProfile = loadExistingUserProfile()
+        eventService = EventServiceManager(peerID: userProfile.getUserMCPeerID())
         eventService.delegate = self
     }
     
@@ -50,7 +50,9 @@ class MainTabBarController: UITabBarController {
             print("exists")
             let userProfileUnarchived = NSKeyedUnarchiver(forReadingWithData: userProfileNSData)
             userProfile = userProfileUnarchived.decodeObjectForKey("root") as! UserProfile
+            print(userProfile.getUserMCPeerID())
         } else {
+            userProfile = UserProfile()
             defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(userProfile), forKey: "userProfile")
         }
         return userProfile

@@ -185,7 +185,6 @@
         <!--GuestEventsNavigationController-->
         <scene sceneID="K8C-M4-mzw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lks-zV-vZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="GuestEventsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="OLu-ze-VMH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Guest" id="Bwo-YI-0MI"/>
                     <toolbarItems/>
@@ -198,13 +197,13 @@
                         <segue destination="yaa-Gx-v8L" kind="relationship" relationship="rootViewController" id="iqc-xk-NJY"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lks-zV-vZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="501" y="261"/>
         </scene>
         <!--HostedEventsNavigationController-->
         <scene sceneID="fkf-QF-i5a">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e0n-ec-f6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="HostedEventsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="1O7-Q9-Rqi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Host" id="h0a-bm-kzv"/>
                     <toolbarItems/>
@@ -217,13 +216,13 @@
                         <segue destination="Tol-XF-uhr" kind="relationship" relationship="rootViewController" id="ulN-XS-uBW"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e0n-ec-f6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="501" y="-670"/>
         </scene>
         <!--ViewProfileController-->
         <scene sceneID="SsJ-4i-Thq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FjD-WU-Br2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="ViewProfileController" automaticallyAdjustsScrollViewInsets="NO" id="nTB-rY-eZ5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" id="BYa-6P-eIn"/>
                     <toolbarItems/>
@@ -236,6 +235,7 @@
                         <segue destination="SZV-Wx-XRk" kind="relationship" relationship="rootViewController" id="nhi-Zd-TmR"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FjD-WU-Br2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-319" y="1273"/>
         </scene>

@@ -47,8 +47,8 @@ class GuestEventsTableViewController: MultipeerCapableTableViewController {
         tableView.reloadData()
     }
     
-    func sendInvite(invite: NSDictionary) {
-        parentTabBarController.sendMessage(invite)
+    func sendInvite(invite: Invite, event: MCPeerID) {
+        parentTabBarController.sendMessage(invite.convertTOSendableObject(parentTabBarController.userProfile.getUserMCPeerID(), recipient: event))
     }
 
 }

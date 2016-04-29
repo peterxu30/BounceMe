@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MultipeerConnectivity
 
 class Event {
     
@@ -47,6 +48,19 @@ class Event {
         jsonNSDic.setValue(hosting, forKey: "hosting")
         jsonNSDic.setValue(signInOnce, forKey: "signInOnce")
         return jsonNSDic as NSDictionary
+    }
+    
+}
+
+extension Event: MultipeerSendableMessage {
+    
+    func convertTOSendableObject(sender: MCPeerID, recipient: MCPeerID?) -> NSDictionary {
+        let sendableObject = NSMutableDictionary()
+        sendableObject.setValue(sender, forKey: "sender")
+        sendableObject.setValue(recipient, forKey: "recipeint")
+        sendableObject.setValue(toJSON(), forKey: "content")
+//        return NSKeyedArchiver.archivedDataWithRootObject(sendableObject as NSDictionary)
+        return sendableObject
     }
     
 }
