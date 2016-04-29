@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gQf-wb-Jfh">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostEventCell" id="gQf-wb-Jfh">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQf-wb-Jfh" id="nqW-Dv-e4j">
@@ -29,8 +29,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="NKp-N2-qQb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kj4-H4-oC9"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kj4-H4-oC9">
+                            <connections>
+                                <action selector="testFunction:" destination="Tol-XF-uhr" id="lCK-Ch-qeC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="AddNewHostedEventUIButton" destination="kj4-H4-oC9" id="zNw-5V-wx2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BhH-nl-K9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -130,13 +137,13 @@
         <!--GuestEventsTableViewController-->
         <scene sceneID="1HM-5F-ych">
             <objects>
-                <tableViewController title="GuestEventsTableViewController" id="yaa-Gx-v8L" sceneMemberID="viewController">
+                <tableViewController title="GuestEventsTableViewController" id="yaa-Gx-v8L" customClass="GuestEventsTableViewController" customModule="BounceMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="V5U-Ii-E1i">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="kzs-Vl-i1o">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GuestEventCell" id="kzs-Vl-i1o">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kzs-Vl-i1o" id="JN2-1A-rr9">
@@ -178,6 +185,7 @@
         <!--GuestEventsNavigationController-->
         <scene sceneID="K8C-M4-mzw">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lks-zV-vZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="GuestEventsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="OLu-ze-VMH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Guest" id="Bwo-YI-0MI"/>
                     <toolbarItems/>
@@ -190,13 +198,13 @@
                         <segue destination="yaa-Gx-v8L" kind="relationship" relationship="rootViewController" id="iqc-xk-NJY"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lks-zV-vZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="501" y="261"/>
         </scene>
         <!--HostedEventsNavigationController-->
         <scene sceneID="fkf-QF-i5a">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e0n-ec-f6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="HostedEventsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="1O7-Q9-Rqi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Host" id="h0a-bm-kzv"/>
                     <toolbarItems/>
@@ -209,13 +217,13 @@
                         <segue destination="Tol-XF-uhr" kind="relationship" relationship="rootViewController" id="ulN-XS-uBW"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e0n-ec-f6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="501" y="-670"/>
         </scene>
         <!--ViewProfileController-->
         <scene sceneID="SsJ-4i-Thq">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FjD-WU-Br2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="ViewProfileController" automaticallyAdjustsScrollViewInsets="NO" id="nTB-rY-eZ5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" id="BYa-6P-eIn"/>
                     <toolbarItems/>
@@ -228,7 +236,6 @@
                         <segue destination="SZV-Wx-XRk" kind="relationship" relationship="rootViewController" id="nhi-Zd-TmR"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FjD-WU-Br2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-319" y="1273"/>
         </scene>

@@ -13,7 +13,7 @@ protocol EventServiceManagerDelegate {
     
     func connectedDevicesChanged(manager : EventServiceManager, connectedDevices: [String])
 //    func eventChanged(manager : EventServiceManager, eventString: String)
-    
+    func messageReceived(manager: EventServiceManager, message: NSDictionary)
 }
 
 class EventServiceManager: NSObject {
@@ -49,12 +49,16 @@ class EventServiceManager: NSObject {
         return session
     }()
     
-    func sendEvent(eventName : String) {
-        NSLog("%@", "sendColor: \(eventName)")
-        
+    /* 
+     * Final Stop before a message is sent out.
+     * Converts NSDictionary types (used internally) to NSData type to broadcast.
+     */
+    func sendMessage(event: NSDictionary) {
+        NSLog("%@", "sendJSON: \(event)")
+        let eventNSData = NSKeyedArchiver.archivedDataWithRootObject(event)
         if session.connectedPeers.count > 0 {
             do {
-                try self.session.sendData(eventName.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: .Reliable)
+                try self.session.sendData(eventNSData, toPeers: session.connectedPeers, withMode: .Reliable)
             } catch {
                 NSLog("%@", "\(error)")
             }
@@ -122,13 +126,23 @@ extension EventServiceManager : MCSessionDelegate {
     
     func session(session: MCSession!, peer peerID: MCPeerID!, didChangeState state: MCSessionState) {
         NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
+        print("Delegate is nil: \(self.delegate == nil)")
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
     
+    /*
+     * First stop for incoming messages. They are converted to NSDictionaries to be used internally.
+     */
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
         NSLog("%@", "didReceiveData: \(data)")
-        let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-        self.delegate?.colorChanged(self, colorString: str)
+        do {
+            print("RECEIVED DATA WOOHOO!")
+            let msg = try NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
+//            let msg = try NSJSONSerialization.JSONObjectWithData(data, options: [.MutableContainers, .AllowFragments]) as! NSDictionary
+            self.delegate?.messageReceived(self, message: msg)
+        } catch let error {
+            print(error)
+        }
     }
     
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!, withName streamName: String!, fromPeer peerID: MCPeerID!) {

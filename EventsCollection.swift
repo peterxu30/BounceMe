@@ -12,21 +12,29 @@ class EventsCollection {
     
     let eventsCalendar = NSCalendar.currentCalendar()
     
-    struct Event {
-        var eventName: String
-        var eventDate: NSDate
-        var eventLocation: String
-        var eventDetails: String
-        var hosting: Bool
-        var password: String
-    }
-    
     private var eventsList = Array<Event>()
     
-    func loadGuestEvents() {
-        
+    func getAllEvents() -> Array<Event> {
+        return eventsList
     }
     
+    func appendEvent(event: Event) {
+        eventsList.append(event)
+    }
     
+    func appendEvent(eventJSON: NSDictionary) {
+        if (eventJSON["type"] as! String == "Event") {
+            let event = Event(jsonDictionary: eventJSON)
+            eventsList.append(event)
+        }
+    }
+    
+    func count() -> Int {
+        return eventsList.count
+    }
+    
+    func getEventAtIndex(index: Int) -> Event {
+        return eventsList[index]
+    }
     
 }

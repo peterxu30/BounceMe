@@ -8,14 +8,41 @@
 
 import UIKit
 
+protocol MainTabBarControllerCommunicator {
+    
+    func messageReceived(message: NSDictionary)
+    
+}
+
 class MainTabBarController: UITabBarController {
     
     var userProfile = UserProfile()
     var defaults = NSUserDefaults.standardUserDefaults()
+    var activeTab = ""
+    var activeViewController: MultipeerCapableTableViewController!
+    
+    let eventService = EventServiceManager()
     
     override func viewDidLoad() {
         print("TabView loaded")
         userProfile = loadExistingUserProfile()
+        eventService.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let uiNavController = self.selectedViewController as! UINavigationController
+        activeViewController = uiNavController.visibleViewController as! MultipeerCapableTableViewController
+        activeTab = activeViewController.tabBarItem.title!
+    }
+    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        let uiNavController = self.selectedViewController as! UINavigationController
+        if (activeTab != "Profile") {
+            activeViewController = uiNavController.visibleViewController as! MultipeerCapableTableViewController
+        } else {
+            activeViewController = nil
+        }
+        activeTab = item.title!
     }
     
     func loadExistingUserProfile() -> UserProfile {
@@ -29,4 +56,23 @@ class MainTabBarController: UITabBarController {
         return userProfile
     }
     
+    func sendMessage(message: NSDictionary) {
+        eventService.sendMessage(message)
+    }
+    
+}
+
+extension MainTabBarController: EventServiceManagerDelegate {
+    func connectedDevicesChanged(manager: EventServiceManager, connectedDevices: [String]) {
+        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+            print("Connected Devices: \(connectedDevices)")
+        }
+    }
+    
+    func messageReceived(manager: EventServiceManager, message: NSDictionary) {
+        print("Message received: \(message)")
+        if (activeTab != "Profile") {
+            activeViewController.messageReceived(message)
+        }
+    }
 }

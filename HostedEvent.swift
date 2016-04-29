@@ -12,8 +12,8 @@ class HostedEvent: Event {
     
     var password: String!
     
-    init(eventName: String, eventDate: NSDate, eventLocation: String, eventDetails: String, password: String) {
-        super.init(eventName: eventName, eventDate: eventDate, eventLocation: eventLocation, eventDetails: eventDetails, hosting: true)
+    init(eventName: String, eventDate: NSDate, eventLocation: String, eventDetails: String, password: String, signInOnce: Bool) {
+        super.init(eventName: eventName, eventDate: eventDate, eventLocation: eventLocation, eventDetails: eventDetails, hosting: true, signInOnce: signInOnce)
         self.password = password
     }
     
