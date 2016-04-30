@@ -11,10 +11,12 @@ import Foundation
 class HostedEvent: Event {
     
     var password: String!
+    var guestList: InvitesCollection!
     
     init(eventName: String, eventDate: NSDate, eventLocation: String, eventDetails: String, password: String, signInOnce: Bool) {
         super.init(eventName: eventName, eventDate: eventDate, eventLocation: eventLocation, eventDetails: eventDetails, hosting: true, signInOnce: signInOnce)
         self.password = password
+        guestList = InvitesCollection()
     }
     
 }

@@ -14,12 +14,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostEventCell" id="gQf-wb-Jfh">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostEventCell" textLabel="cgi-8p-i8T" detailTextLabel="7dn-Qb-enX" style="IBUITableViewCellStyleValue2" id="gQf-wb-Jfh" customClass="HostedEventTableViewCell" customModule="BounceMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQf-wb-Jfh" id="nqW-Dv-e4j">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cgi-8p-i8T">
+                                            <rect key="frame" x="15" y="11" width="91" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="textColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7dn-Qb-enX">
+                                            <rect key="frame" x="112" y="15" width="39.5" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -37,11 +53,120 @@
                     </navigationItem>
                     <connections>
                         <outlet property="AddNewHostedEventUIButton" destination="kj4-H4-oC9" id="zNw-5V-wx2"/>
+                        <segue destination="Tvi-sh-bY5" kind="show" identifier="segueToEventDetails" id="PIW-3C-fV1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BhH-nl-K9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1313" y="-670"/>
+        </scene>
+        <!--Event-->
+        <scene sceneID="Zm1-9F-Ael">
+            <objects>
+                <viewController title="Event" id="Tvi-sh-bY5" customClass="EventDetailsViewController" customModule="BounceMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OyQ-Jl-6XV"/>
+                        <viewControllerLayoutGuide type="bottom" id="CMP-0x-f5z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8BR-Gd-Ltu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zLQ-KD-AYN">
+                                <rect key="frame" x="20" y="68" width="560" height="464"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qds-hg-9xM" userLabel="Event Details Text View">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="121"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="121" id="tTg-Lb-7Bf"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8dW-Dg-jKE">
+                                        <rect key="frame" x="0.0" y="121" width="560" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5I-NZ-YrS">
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="35w-1x-g8f"/>
+                                                </constraints>
+                                                <state key="normal" title="Pulse"/>
+                                                <connections>
+                                                    <action selector="pulseButtonPressed:" destination="Tvi-sh-bY5" eventType="touchUpInside" id="Myh-Jw-fkp"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnh-wZ-2bq">
+                                                <rect key="frame" x="280" y="0.0" width="280" height="50"/>
+                                                <state key="normal" title="Flash"/>
+                                                <connections>
+                                                    <action selector="flashButtonPressed:" destination="Tvi-sh-bY5" eventType="touchUpInside" id="tOC-bp-vKc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="x5I-NZ-YrS" firstAttribute="height" secondItem="rnh-wZ-2bq" secondAttribute="height" id="MVd-gS-08r"/>
+                                            <constraint firstItem="x5I-NZ-YrS" firstAttribute="width" secondItem="rnh-wZ-2bq" secondAttribute="width" id="PU1-Sa-avF"/>
+                                        </constraints>
+                                    </stackView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bbU-4Z-43v">
+                                        <rect key="frame" x="0.0" y="171" width="560" height="293"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GuestCell" textLabel="cHV-Wb-hY2" detailTextLabel="cVs-bB-vWN" style="IBUITableViewCellStyleValue2" id="ie2-Wv-ALa">
+                                                <rect key="frame" x="0.0" y="28" width="560" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ie2-Wv-ALa" id="7or-1o-lP9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cHV-Wb-hY2">
+                                                            <rect key="frame" x="15" y="15" width="91" height="14.5"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cVs-bB-vWN">
+                                                            <rect key="frame" x="112" y="15" width="33" height="14.5"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <sections/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Qds-hg-9xM" firstAttribute="leading" secondItem="zLQ-KD-AYN" secondAttribute="leading" id="rV2-ow-zRB"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zLQ-KD-AYN" firstAttribute="leading" secondItem="8BR-Gd-Ltu" secondAttribute="leading" constant="20" id="0RL-4B-kWX"/>
+                            <constraint firstItem="zLQ-KD-AYN" firstAttribute="top" secondItem="OyQ-Jl-6XV" secondAttribute="bottom" constant="4" id="aMG-9g-woG"/>
+                            <constraint firstItem="zLQ-KD-AYN" firstAttribute="centerX" secondItem="8BR-Gd-Ltu" secondAttribute="centerX" id="muc-J6-jDT"/>
+                            <constraint firstItem="zLQ-KD-AYN" firstAttribute="centerY" secondItem="8BR-Gd-Ltu" secondAttribute="centerY" id="sbQ-h2-Gkw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="FhU-Yx-z14"/>
+                    <connections>
+                        <outlet property="eventDetailsTextView" destination="Qds-hg-9xM" id="tPU-ed-2rH"/>
+                        <outlet property="flashEventButton" destination="rnh-wZ-2bq" id="m4d-67-FkG"/>
+                        <outlet property="guestListTableView" destination="bbU-4Z-43v" id="MYJ-R5-agl"/>
+                        <outlet property="pulseEventButton" destination="x5I-NZ-YrS" id="BjM-Hr-vAV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OwR-8f-xGJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2113" y="-670"/>
         </scene>
         <!--User Profile-->
         <scene sceneID="krv-QS-c6L">

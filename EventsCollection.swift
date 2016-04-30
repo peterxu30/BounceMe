@@ -13,19 +13,30 @@ class EventsCollection {
     let eventsCalendar = NSCalendar.currentCalendar()
     
     private var eventsList = Array<Event>()
+    private var eventIDSet = Set<String>()
+    
     
     func getAllEvents() -> Array<Event> {
-        return eventsList
+        return eventsList //replace with eventsListDic
     }
     
     func appendEvent(event: Event) {
-        eventsList.append(event)
+        if !eventIDSet.contains(event.eventID) {
+            eventsList.append(event)
+            eventIDSet.insert(event.eventID)
+        }
+        
     }
     
     func appendEvent(eventJSON: NSDictionary) {
         if (eventJSON["type"] as! String == "Event") {
-            let event = Event(jsonDictionary: eventJSON)
-            eventsList.append(event)
+            if !eventIDSet.contains(eventJSON["eventID"] as! String) {
+                print(eventJSON["eventID"])
+                let event = Event(jsonDictionary: eventJSON)
+                eventsList.append(event)
+                eventIDSet.insert(event.eventID)
+                print(event.eventID)
+            }
         }
     }
     

@@ -11,20 +11,19 @@ import MultipeerConnectivity
 
 class GuestEventsTableViewController: MultipeerCapableTableViewController {
     
-    var detectedGuestEventsCollection: EventsCollection!
+    var detectedGuestEventsCollection = EventsCollection()
     var testEvents: Array<String>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detectedGuestEventsCollection = EventsCollection()
-        testEvents = Array<String>()
-        testEvents.append("TEST1")
+//        testEvents = Array<String>()
+//        testEvents.append("TEST1")
 //        self.sendInvite("TESTAPPLICATION")
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("GuestEventCell", forIndexPath: indexPath) as! UITableViewCell
-        let currentEvent1 = testEvents[indexPath.row]
+//        let currentEvent1 = testEvents[indexPath.row]
         let currentEvent = detectedGuestEventsCollection.getEventAtIndex(indexPath.row)
         cell.textLabel?.text = currentEvent.eventName
         return cell
@@ -41,6 +40,7 @@ class GuestEventsTableViewController: MultipeerCapableTableViewController {
     override func messageReceived(message: NSDictionary) {
         //Only when detecting an event.
         detectedGuestEventsCollection.appendEvent(message)
+        reloadData()
     }
     
     func reloadData() {
@@ -52,34 +52,3 @@ class GuestEventsTableViewController: MultipeerCapableTableViewController {
     }
 
 }
-
-//extension GuestEventsTableViewController: EventServiceManagerDelegate {
-//    
-//    func connectedDevicesChanged(manager: EventServiceManager, connectedDevices: [String]) {
-//        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-//            print("Connected Devices: \(connectedDevices)")
-//            self.sendApplication("testApplication")
-//        }
-//    }
-//    
-//    func eventChanged(manager: EventServiceManager, eventString: String) {
-//        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-//            switch eventString {
-//            case "red":
-////                self.changeEvent(...)
-//                print(eventString)
-//            case "yellow":
-////                self.changeEvent(...)
-//                print(eventString)
-//            default:
-//                NSLog("%@", "Unknown event value received: \(eventString)")
-//            }
-//        }
-//    }
-//    
-//    func messageReceived(manager: EventServiceManager, messageString: String) {
-//        print("Message received: \(messageString)")
-//        testEvents.append(messageString)
-//        print("Message: \(testEvents)")
-//    }
-//}

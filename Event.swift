@@ -12,6 +12,7 @@ import MultipeerConnectivity
 class Event {
     
     var type = "Event"
+    var eventID: String!
     var eventName: String!
     var eventDate: NSDate!
     var eventLocation: String!
@@ -20,6 +21,7 @@ class Event {
     var signInOnce: Bool!
     
     init(eventName: String, eventDate: NSDate, eventLocation: String, eventDetails: String, hosting: Bool, signInOnce: Bool) {
+        self.eventID = NSUUID().UUIDString
         self.eventName = eventName
         self.eventDate = eventDate
         self.eventLocation = eventLocation
@@ -30,24 +32,13 @@ class Event {
     
     init(jsonDictionary: NSDictionary) {
         type = jsonDictionary["type"] as! String
+        eventID = jsonDictionary["eventID"] as! String
         eventName = jsonDictionary["eventName"] as! String
         eventDate = (jsonDictionary["eventDate"] as! NSDate)
         eventLocation = jsonDictionary["eventLocation"] as! String
         eventDetails = jsonDictionary["eventDetails"] as! String
         hosting = jsonDictionary["hosting"] as! Bool
         signInOnce = jsonDictionary["signInOnce"] as! Bool
-    }
-    
-    func toJSON() -> NSDictionary {
-        let jsonNSDic = NSMutableDictionary()
-        jsonNSDic.setValue(type, forKey: "type") //.addEntriesFromDictionary(jsonDic)
-        jsonNSDic.setValue(eventName, forKey: "eventName")
-        jsonNSDic.setValue(eventDate, forKey: "eventDate")
-        jsonNSDic.setValue(eventLocation, forKey: "eventLocation")
-        jsonNSDic.setValue(eventDetails, forKey: "eventDetails")
-        jsonNSDic.setValue(hosting, forKey: "hosting")
-        jsonNSDic.setValue(signInOnce, forKey: "signInOnce")
-        return jsonNSDic as NSDictionary
     }
     
 }
@@ -59,8 +50,20 @@ extension Event: MultipeerSendableMessage {
         sendableObject.setValue(sender, forKey: "sender")
         sendableObject.setValue(recipient, forKey: "recipeint")
         sendableObject.setValue(toJSON(), forKey: "content")
-//        return NSKeyedArchiver.archivedDataWithRootObject(sendableObject as NSDictionary)
         return sendableObject
+    }
+    
+    private func toJSON() -> NSDictionary {
+        let jsonNSDic = NSMutableDictionary()
+        jsonNSDic.setValue(type, forKey: "type") //.addEntriesFromDictionary(jsonDic)
+        jsonNSDic.setValue(eventID, forKey: "eventID")
+        jsonNSDic.setValue(eventName, forKey: "eventName")
+        jsonNSDic.setValue(eventDate, forKey: "eventDate")
+        jsonNSDic.setValue(eventLocation, forKey: "eventLocation")
+        jsonNSDic.setValue(eventDetails, forKey: "eventDetails")
+        jsonNSDic.setValue(hosting, forKey: "hosting")
+        jsonNSDic.setValue(signInOnce, forKey: "signInOnce")
+        return jsonNSDic as NSDictionary
     }
     
 }

@@ -15,26 +15,27 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
 //    @IBOutlet weak var connectionsLabel: UILabel!
     var hostedEventsCollection: EventsCollection!
     
+    var tempEvent: HostedEvent!
+    
+    //testing
     @IBAction func testFunction(sender: AnyObject) {
-        broadcastHostedEvent(Event(eventName: "TestEvent", eventDate: NSDate(), eventLocation: "Home", eventDetails: "None", hosting: true, signInOnce: true))
+        broadcastHostedEvent(tempEvent)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         hostedEventsCollection = EventsCollection()
         
         //testing
-        let event = Event(eventName: "TestEvent", eventDate: NSDate(), eventLocation: "Home", eventDetails: "None", hosting: true, signInOnce: true)
-        hostedEventsCollection.appendEvent(event)
-        let testString = event.toJSON()
-        let test = Event(jsonDictionary: testString)
-        print(test.eventLocation)
-        broadcastHostedEvent(event)
+        tempEvent = HostedEvent(eventName: "TestEvent", eventDate: NSDate(), eventLocation: "Home", eventDetails: "None", password: "", signInOnce: true)
+        hostedEventsCollection.appendEvent(tempEvent)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HostEventCell", forIndexPath: indexPath) as! UITableViewCell
-        let currentEvent = hostedEventsCollection.getEventAtIndex(indexPath.row)
+        let cell = tableView.dequeueReusableCellWithIdentifier("HostEventCell", forIndexPath: indexPath) as! HostedEventTableViewCell
+        let currentEvent = hostedEventsCollection.getEventAtIndex(indexPath.row) as! HostedEvent
+        cell.event = currentEvent
         cell.textLabel?.text = currentEvent.eventName
+        cell.detailTextLabel?.text = "Number checked in: \(currentEvent.guestList.count())"
         return cell
     }
     
@@ -46,21 +47,36 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
         return true
     }
     
-    override func messageReceived(message: NSDictionary) {
-        // Only for receiving guest applications
-        
-//        checkIfValidInvite(message)
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("segueToEventDetails", sender: self)
     }
     
-//    func checkIfValidInvite(messageString: String) {
-//        let invite = Invite(jsonString: messageString)
-//        if (invite.type != "NONE") {
-//            
-//        }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "segueToEventDetails" {
+            let destinationVC = segue.destinationViewController as! EventDetailsViewController
+            let selectedCellIndex = self.tableView.indexPathForSelectedRow!
+            let selectedEvent = hostedEventsCollection.getEventAtIndex(selectedCellIndex.row) as! HostedEvent
+            destinationVC.hostedEventsTVC = self
+            destinationVC.event = selectedEvent
+            destinationVC.title = selectedEvent.eventName
+        }
+    }
+    
+//    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) {
+//        self.performSegueWithIdentifier("segueToEventDetails", sender: self)
 //    }
     
+    override func messageReceived(message: NSDictionary) {
+        // Only for receiving guest applications
+        hostedEventsCollection.appendEvent(message)
+    }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
     func broadcastHostedEvent(hostedEvent: Event) {
-        print(hostedEvent.toJSON())
         parentTabBarController.sendMessage(hostedEvent.convertTOSendableObject(parentTabBarController.userProfile.getUserMCPeerID(), recipient: nil))
     }
     

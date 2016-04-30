@@ -21,6 +21,8 @@ class MainTabBarController: UITabBarController {
     var activeTab = ""
     var activeViewController: MultipeerCapableTableViewController!
     var eventService: EventServiceManager!
+    var hostedEventTableViewController: MultipeerCapableTableViewController!
+    var guestEventTableViewController: MultipeerCapableTableViewController!
     
     override func viewDidLoad() {
         print("TabView loaded")
@@ -31,6 +33,20 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         let uiNavController = self.selectedViewController as! UINavigationController
+        
+        let views = self.viewControllers!
+        for index in 0..<views.count {
+            let navView = views[index] as! UINavigationController
+            if index == 0 {
+                print("I'm the host")
+                
+                hostedEventTableViewController = navView.visibleViewController as! MultipeerCapableTableViewController
+            } else if index == 1 {
+                print("I'm the guest")
+                guestEventTableViewController = navView.visibleViewController as! MultipeerCapableTableViewController
+            }
+        }
+        
         activeViewController = uiNavController.visibleViewController as! MultipeerCapableTableViewController
         activeTab = activeViewController.tabBarItem.title!
     }
@@ -74,7 +90,14 @@ extension MainTabBarController: EventServiceManagerDelegate {
     func messageReceived(manager: EventServiceManager, message: NSDictionary) {
         print("Message received: \(message)")
         if (activeTab != "Profile") {
-            activeViewController.messageReceived(message)
+            if message["type"] as! String == "Event" {
+                print("Routed to guest")
+                guestEventTableViewController.messageReceived(message)
+            } else if message["type"] as! String == "Invite" {
+                print("Routed to host")
+                hostedEventTableViewController.messageReceived(message)
+            }
+//            activeViewController.messageReceived(message)
         }
     }
 }
