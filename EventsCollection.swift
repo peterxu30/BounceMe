@@ -13,31 +13,39 @@ class EventsCollection {
     let eventsCalendar = NSCalendar.currentCalendar()
     
     private var eventsList = Array<Event>()
-    private var eventIDSet = Set<String>()
+    private var eventIDToIndex = Dictionary<String, Int>()
     
+    func getEventByEventID(id: String) -> Event {
+        return eventsList[eventIDToIndex[id]!]
+    }
     
     func getAllEvents() -> Array<Event> {
         return eventsList //replace with eventsListDic
     }
     
     func appendEvent(event: Event) {
-        if !eventIDSet.contains(event.eventID) {
+        if (eventIDToIndex[event.eventID]) == nil {
             eventsList.append(event)
-            eventIDSet.insert(event.eventID)
+            eventIDToIndex[event.eventID] = eventsList.count - 1
         }
         
     }
     
     func appendEvent(eventJSON: NSDictionary) {
         if (eventJSON["type"] as! String == "Event") {
-            if !eventIDSet.contains(eventJSON["eventID"] as! String) {
+            if (eventIDToIndex[(eventJSON["eventID"] as! String)] == nil) {
                 print(eventJSON["eventID"])
                 let event = Event(jsonDictionary: eventJSON)
                 eventsList.append(event)
-                eventIDSet.insert(event.eventID)
+                eventIDToIndex[event.eventID] = eventsList.count - 1
                 print(event.eventID)
             }
         }
+    }
+    
+    func removeEventAtIndex(index: Int) {
+        eventIDToIndex.removeValueForKey(eventsList[index].eventID)
+        eventsList.removeAtIndex(index)
     }
     
     func count() -> Int {

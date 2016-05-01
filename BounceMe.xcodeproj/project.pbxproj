@@ -25,6 +25,8 @@
 		D0504D1A1CD48AD000082A82 /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0504D191CD48AD000082A82 /* EventDetailsViewController.swift */; };
 		D064342B1CD2B75D00198206 /* MultipeerCapableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064342A1CD2B75D00198206 /* MultipeerCapableTableViewController.swift */; };
 		D064342D1CD2C29D00198206 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064342C1CD2C29D00198206 /* Invite.swift */; };
+		D0B4D83A1CD53384007FD022 /* AddNewHostedEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4D8391CD53384007FD022 /* AddNewHostedEventViewController.swift */; };
+		D0B4D83C1CD5722D007FD022 /* GuestEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4D83B1CD5722D007FD022 /* GuestEventTableViewCell.swift */; };
 		D0CFD16A1CCC41A800B164D2 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CFD1691CCC41A800B164D2 /* UserProfile.swift */; };
 		D0CFD16E1CCC44C200B164D2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CFD16D1CCC44C200B164D2 /* ProfileViewController.swift */; };
 		D0E28BFF1CD1BEBC009F97D9 /* GuestEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E28BFE1CD1BEBC009F97D9 /* GuestEventsTableViewController.swift */; };
@@ -51,6 +53,8 @@
 		D0504D191CD48AD000082A82 /* EventDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
 		D064342A1CD2B75D00198206 /* MultipeerCapableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipeerCapableTableViewController.swift; sourceTree = "<group>"; };
 		D064342C1CD2C29D00198206 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		D0B4D8391CD53384007FD022 /* AddNewHostedEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewHostedEventViewController.swift; sourceTree = "<group>"; };
+		D0B4D83B1CD5722D007FD022 /* GuestEventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestEventTableViewCell.swift; sourceTree = "<group>"; };
 		D0CFD1691CCC41A800B164D2 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		D0CFD16D1CCC44C200B164D2 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D0E28BFE1CD1BEBC009F97D9 /* GuestEventsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestEventsTableViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			children = (
 				D064342C1CD2C29D00198206 /* Invite.swift */,
 				D0504D151CD478A900082A82 /* InvitesCollection.swift */,
+				D0B4D83B1CD5722D007FD022 /* GuestEventTableViewCell.swift */,
 			);
 			name = Invite;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 				D0E28BFE1CD1BEBC009F97D9 /* GuestEventsTableViewController.swift */,
 				D064342A1CD2B75D00198206 /* MultipeerCapableTableViewController.swift */,
 				D0504D191CD48AD000082A82 /* EventDetailsViewController.swift */,
+				D0B4D8391CD53384007FD022 /* AddNewHostedEventViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -249,7 +255,9 @@
 				D00349FC1CCDA46B00F208BB /* HostedEvent.swift in Sources */,
 				D02629FC1CC757A300B67383 /* AppDelegate.swift in Sources */,
 				D0504D121CD41CC200082A82 /* MultipeerSendableData.swift in Sources */,
+				D0B4D83C1CD5722D007FD022 /* GuestEventTableViewCell.swift in Sources */,
 				D043DEC51CCD69DE0006A061 /* EventsCollection.swift in Sources */,
+				D0B4D83A1CD53384007FD022 /* AddNewHostedEventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

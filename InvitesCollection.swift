@@ -30,7 +30,7 @@ class InvitesCollection {
     }
     
     func appendInvite(inviteJSON: NSDictionary) {
-        if (inviteJSON["type"] as! String == "Event") {
+        if (inviteJSON["type"] as! String == "Invite") {
             if !inviteIDSet.contains(inviteJSON["inviteeMCPeerID"] as! MCPeerID) {
                 print(inviteJSON["eventID"])
                 let invite = Invite(jsonDictionary: inviteJSON)

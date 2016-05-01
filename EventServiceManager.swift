@@ -12,7 +12,7 @@ import MultipeerConnectivity
 protocol EventServiceManagerDelegate {
     
     func connectedDevicesChanged(manager : EventServiceManager, connectedDevices: [String])
-    func messageReceived(manager: EventServiceManager, message: NSDictionary)
+    func messageReceived(manager: EventServiceManager, message: NSDictionary, sender: MCPeerID)
 }
 
 class EventServiceManager: NSObject {
@@ -138,14 +138,15 @@ extension EventServiceManager : MCSessionDelegate {
         do {
             print("RECEIVED DATA WOOHOO!")
             let msg = try NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
+            let sender = msg["sender"] as! MCPeerID
             if let recipient = msg["recipient"] as? MCPeerID {
                 if (recipient == myPeerId) {
                     print("Valid recipient")
-                    self.delegate?.messageReceived(self, message: msg["content"] as! NSDictionary)
+                    self.delegate?.messageReceived(self, message: msg["content"] as! NSDictionary, sender: sender)
                 }
             } else {
                 print("All recipients")
-                self.delegate?.messageReceived(self, message: msg["content"] as! NSDictionary)
+                self.delegate?.messageReceived(self, message: msg["content"] as! NSDictionary, sender: sender)
             }
             
         } catch let error {

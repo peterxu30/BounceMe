@@ -11,8 +11,11 @@ import MultipeerConnectivity
 
 class HostedEventsTableViewController: MultipeerCapableTableViewController {
     
+    @IBOutlet weak var deleteHostedEventUIButton: UIBarButtonItem!
+    var deleteModeOn = false
+    
     @IBOutlet weak var AddNewHostedEventUIButton: UIBarButtonItem!
-//    @IBOutlet weak var connectionsLabel: UILabel!
+    
     var hostedEventsCollection: EventsCollection!
     
     var tempEvent: HostedEvent!
@@ -21,6 +24,16 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
     @IBAction func testFunction(sender: AnyObject) {
         broadcastHostedEvent(tempEvent)
     }
+    
+    func reloadData() {
+        tableView.reloadData()
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hostedEventsCollection = EventsCollection()
@@ -28,6 +41,7 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
         //testing
         tempEvent = HostedEvent(eventName: "TestEvent", eventDate: NSDate(), eventLocation: "Home", eventDetails: "None", password: "", signInOnce: true)
         hostedEventsCollection.appendEvent(tempEvent)
+        print(hostedEventsCollection.count())
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -48,8 +62,21 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("segueToEventDetails", sender: self)
+        
+        if deleteModeOn {
+            hostedEventsCollection.removeEventAtIndex(indexPath.row)
+            reloadData()
+        } else {
+            self.performSegueWithIdentifier("segueToEventDetails", sender: self)
+        }
+        
     }
+    
+//    private func resetCell(cell: HostedEventTableViewCell) {
+//        cell.event = nil
+//        cell.textLabel?.text = ""
+//        cell.detailTextLabel?.text = ""
+//    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -60,25 +87,38 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
             destinationVC.hostedEventsTVC = self
             destinationVC.event = selectedEvent
             destinationVC.title = selectedEvent.eventName
+        } else if (segue.identifier == "segueToAddNewHostedEvent") {
+            print("new event")
+            let navVC = segue.destinationViewController as! UINavigationController
+            let newEventVC = navVC.viewControllers.first as! AddNewHostedEventViewController
+            newEventVC.hostedEventsCollection = hostedEventsCollection
         }
     }
     
-//    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) {
-//        self.performSegueWithIdentifier("segueToEventDetails", sender: self)
-//    }
-    
-    override func messageReceived(message: NSDictionary) {
+    override func messageReceived(message: NSDictionary, sender: MCPeerID) {
         // Only for receiving guest applications
-        hostedEventsCollection.appendEvent(message)
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
+        print("Invite recieved: \(message)")
+        let correspondingEvent = hostedEventsCollection.getEventByEventID(message["eventID"] as! String) as! HostedEvent
+        correspondingEvent.guestList.appendInvite(message)
+        print(correspondingEvent.guestList.count())
+        reloadData()
     }
     
     func broadcastHostedEvent(hostedEvent: Event) {
         parentTabBarController.sendMessage(hostedEvent.convertTOSendableObject(parentTabBarController.userProfile.getUserMCPeerID(), recipient: nil))
     }
     
+    @IBAction func unwindToToDoListTableViewController(segue: UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func deleteHostedEventButtonPressed(sender: AnyObject) {
+        if deleteModeOn {
+            deleteHostedEventUIButton.tintColor = self.view.tintColor
+        } else {
+            deleteHostedEventUIButton.tintColor = UIColor.redColor()
+        }
+        deleteModeOn = !deleteModeOn
+    }
 }
 

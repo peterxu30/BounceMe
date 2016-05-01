@@ -28,6 +28,7 @@ class EventDetailsViewController: UIViewController, UITableViewDelegate, UITable
         
         if let ev = event {
             guestList = ev.guestList
+            reloadTableView()
         }
     }
     
@@ -41,6 +42,11 @@ class EventDetailsViewController: UIViewController, UITableViewDelegate, UITable
         cell.textLabel?.text = currentInvite.userName
         cell.detailTextLabel?.text = "Phone: \(currentInvite.userPhoneNumber), Email: \(currentInvite.userEmail)"
         return cell
+    }
+    
+    func reloadTableView() {
+        guestListTableView.reloadData()
+        guestListTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
     
     var myTimer = NSTimer()

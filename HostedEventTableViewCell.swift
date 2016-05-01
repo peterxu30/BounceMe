@@ -10,6 +10,6 @@ import UIKit
 
 class HostedEventTableViewCell: UITableViewCell {
     
-    var event: HostedEvent!
+    var event: HostedEvent?
     
 }

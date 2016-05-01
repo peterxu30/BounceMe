@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class MultipeerCapableTableViewController: UITableViewController {
     
@@ -21,7 +22,7 @@ class MultipeerCapableTableViewController: UITableViewController {
 
 extension MultipeerCapableTableViewController: MainTabBarControllerCommunicator {
     
-    func messageReceived(message: NSDictionary) {
+    func messageReceived(message: NSDictionary, sender: MCPeerID) {
         //override me
     }
     

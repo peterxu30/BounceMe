@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 protocol MainTabBarControllerCommunicator {
     
-    func messageReceived(message: NSDictionary)
+    func messageReceived(message: NSDictionary, sender: MCPeerID)
     
 }
 
@@ -87,15 +88,15 @@ extension MainTabBarController: EventServiceManagerDelegate {
         }
     }
     
-    func messageReceived(manager: EventServiceManager, message: NSDictionary) {
+    func messageReceived(manager: EventServiceManager, message: NSDictionary, sender: MCPeerID) {
         print("Message received: \(message)")
         if (activeTab != "Profile") {
             if message["type"] as! String == "Event" {
                 print("Routed to guest")
-                guestEventTableViewController.messageReceived(message)
+                guestEventTableViewController.messageReceived(message, sender: sender)
             } else if message["type"] as! String == "Invite" {
                 print("Routed to host")
-                hostedEventTableViewController.messageReceived(message)
+                hostedEventTableViewController.messageReceived(message, sender: sender)
             }
 //            activeViewController.messageReceived(message)
         }
