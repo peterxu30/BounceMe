@@ -39,9 +39,9 @@ class HostedEventsTableViewController: MultipeerCapableTableViewController {
         hostedEventsCollection = EventsCollection()
         
         //testing
-        tempEvent = HostedEvent(eventName: "TestEvent", eventDate: NSDate(), eventLocation: "Home", eventDetails: "None", password: "", signInOnce: true)
-        hostedEventsCollection.appendEvent(tempEvent)
-        print(hostedEventsCollection.count())
+//        tempEvent = HostedEvent(eventName: "TestEvent", eventDate: NSDate(), eventLocation: "Home", eventDetails: "None", password: "", signInOnce: true)
+//        hostedEventsCollection.appendEvent(tempEvent)
+//        print(hostedEventsCollection.count())
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

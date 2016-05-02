@@ -26,8 +26,9 @@ class AddNewHostedEventViewController: UIViewController {
         let date = NSDate()//formatter.dateFromString(newEventDateTextField.text!)
         print(date)
         let newHostedEvent = HostedEvent(eventName: newEventNameTextField.text!, eventDate: date, eventLocation: newEventLocationTextField.text!, eventDetails: newEventDetailsTextField.text!, password: "", signInOnce: newEventSingleSignInSwitch.on)
-        
-        hostedEventsCollection.appendEvent(newHostedEvent)
+        if (newHostedEvent.eventName != "") {
+           hostedEventsCollection.appendEvent(newHostedEvent)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

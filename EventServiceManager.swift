@@ -5,6 +5,8 @@
 //  Created by Peter Xu on 4/24/16.
 //  Copyright © 2016 Peter Xu. All rights reserved.
 //
+//  Much of this class was borrowed from https://www.ralfebert.de/tutorials/ios-swift-multipeer-connectivity/.
+//
 
 import UIKit
 import MultipeerConnectivity
